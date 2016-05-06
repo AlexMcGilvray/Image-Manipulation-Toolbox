@@ -51,12 +51,12 @@ void run_image_rotation_test()
 	printf("Rotating image 90 degrees clockwise \n");
 
 	//first test, just make sure we can copy the data over manually
-	for (int y = 0; y < imageData.width; ++y)
+	for (int y = 0; y < imageData.height; ++y)
 	{
-		for (int x = 0; x < imageData.height; ++x)
+		for (int x = 0; x < imageData.width; ++x)
 		{
 			int targetX = imageData.width - y;
-			
+			//int targetY = imageData.
 		}
 	}
 
@@ -78,9 +78,9 @@ void run_image_copy_test()
 	printf("Manual image copy \n");
 
 	//first test, just make sure we can copy the data over manually
-	for (int y = 0; y < imageData.width; ++y)
+	for (int y = 0; y < imageData.height; ++y)
 	{
-		for (int x = 0; x < imageData.height; ++x)
+		for (int x = 0; x < imageData.width; ++x)
 		{
 			setPixel(imageData, newImageData, x, y, x, y);
 		}
