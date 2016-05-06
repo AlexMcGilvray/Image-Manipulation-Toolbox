@@ -4,20 +4,117 @@
 #include "stb/stb_image.h"
 #include "stb/stb_image_write.h"
 
+#define IMP_ERROR_SUCCESS 0
+#define IMP_ERROR_FAIL 1
 
+#define COMPONENT_SIZE 3
+
+struct ImageData
+{
+	int width;
+	int height; 
+	unsigned char *data;
+};
+
+//image data stuff
+struct ImageData load_image(const char * const pathIn);
+struct ImageData create_uninitialized_image(int width, int height);
+void destroy_image(struct ImageData image);
+
+//util
+int getDataOffset(struct ImageData imageData, int x, int y);
+void setPixel(struct ImageData source, struct ImageData target, int x, int y);
+
+//image manipulations that are not in-place
+struct ImageData rotate_image_90_cw(struct ImageData imageData);
+//tests
+void run_image_rotation_test();
+void run_image_copy_test();
 void run_library_tests();
-int image_readwrite_test(char * const pathIn, char * const pathOut);
+int image_readwrite_test(const char * const pathIn, const char * const pathOut);
 
 int main(int argc, char * argv[])
 {
-	run_library_tests();
+	//run_library_tests();
+	//run_image_rotation_test();
+	run_image_copy_test();
+}
+
+void run_image_rotation_test()
+{
+	
+}
+
+void run_image_copy_test()
+{
+	const char * const inPath = "../TestData/square_compass_200.png";
+	const char * const outPath = "../TestDataResults/square_compass_200_rotated.png";
+
+	struct ImageData imageData = load_image(inPath);
+	struct ImageData newImageData = create_uninitialized_image(imageData.width, imageData.height);
+
+	printf("Rotating image 90 degrees clockwise \n");
+
+	//first test, just make sure we can copy the data over manually
+	for (int y = 0; y < imageData.width; ++y)
+	{
+		for (int x = 0; x < imageData.height; ++x)
+		{
+			setPixel(imageData, newImageData, x, y);
+		}
+	}
+
+	if (stbi_write_bmp(outPath, newImageData.width, newImageData.height, 3, newImageData.data))
+		printf("Rotating image 90 degrees clockwise \n");
+
+	destroy_image(imageData);
+	destroy_image(newImageData);
+}
+
+struct ImageData load_image(const char * const pathIn)
+{
+	struct ImageData imageData;
+	int w, h, n;
+	unsigned char *data = stbi_load(pathIn, &w, &h, &n, 0);
+	imageData.width = w;
+	imageData.height = h;
+	imageData.data = data;
+	return imageData;
+}
+
+struct ImageData create_uninitialized_image(int width, int height)
+{
+	struct ImageData imageData; 
+	imageData.width = width;
+	imageData.height = height;
+	imageData.data = malloc(sizeof(unsigned char) * width * height * COMPONENT_SIZE);
+	return imageData;
+}
+
+void destroy_image(struct ImageData image)
+{
+	free(image.data);
+}
+
+
+int getDataOffset(struct ImageData imageData, int x, int y)
+{
+	return (x + y * imageData.width) * COMPONENT_SIZE;
+}
+
+
+void setPixel(struct ImageData source, struct ImageData target, int x, int y)
+{
+	target.data[getDataOffset(target, x, y)] = source.data[getDataOffset(source, x, y)];
+	target.data[getDataOffset(target, x, y) + 1] = source.data[getDataOffset(source, x, y) + 1];
+	target.data[getDataOffset(target, x, y) + 2] = source.data[getDataOffset(source, x, y) + 2];
 }
 
 void run_library_tests()
 {
 	printf("Hello \n");
 
-	if (image_readwrite_test("../TestData/square_compass_200.png", "../TestDataResults/square_compass_200.png") == 0)
+	if (image_readwrite_test("../TestData/square_compass_200.png", "../TestDataResults/square_compass_200.png") == IMP_ERROR_SUCCESS)
 		printf("Test passed successfully");
 	else
 		printf("Error");
@@ -25,7 +122,7 @@ void run_library_tests()
 	getchar();
 }
 
-int image_readwrite_test(char * const pathIn, char * const pathOut)
+int image_readwrite_test(const char * const pathIn, const char * const pathOut)
 {
 	int x, y, n;
 	unsigned char *data = stbi_load(pathIn, &x, &y, &n, 0);
