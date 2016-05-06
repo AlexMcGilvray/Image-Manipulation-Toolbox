@@ -23,7 +23,7 @@ void destroy_image(struct ImageData image);
 
 //util
 int getDataOffset(struct ImageData imageData, int x, int y);
-void setPixel(struct ImageData source, struct ImageData target, int x, int y);
+void setPixel(struct ImageData source, struct ImageData target, int sx, int sy, int tx, int ty);
 
 //image manipulations that are not in-place
 struct ImageData rotate_image_90_cw(struct ImageData imageData);
@@ -42,11 +42,6 @@ int main(int argc, char * argv[])
 
 void run_image_rotation_test()
 {
-	
-}
-
-void run_image_copy_test()
-{
 	const char * const inPath = "../TestData/square_compass_200.png";
 	const char * const outPath = "../TestDataResults/square_compass_200_rotated.png";
 
@@ -60,7 +55,34 @@ void run_image_copy_test()
 	{
 		for (int x = 0; x < imageData.height; ++x)
 		{
-			setPixel(imageData, newImageData, x, y);
+			int targetX = imageData.width - y;
+			
+		}
+	}
+
+	if (stbi_write_bmp(outPath, newImageData.width, newImageData.height, 3, newImageData.data))
+		printf("Rotating image 90 degrees clockwise \n");
+
+	destroy_image(imageData);
+	destroy_image(newImageData);
+}
+
+void run_image_copy_test()
+{
+	const char * const inPath = "../TestData/square_compass_200.png";
+	const char * const outPath = "../TestDataResults/square_compass_200_rotated.png";
+
+	struct ImageData imageData = load_image(inPath);
+	struct ImageData newImageData = create_uninitialized_image(imageData.width, imageData.height);
+
+	printf("Manual image copy \n");
+
+	//first test, just make sure we can copy the data over manually
+	for (int y = 0; y < imageData.width; ++y)
+	{
+		for (int x = 0; x < imageData.height; ++x)
+		{
+			setPixel(imageData, newImageData, x, y, x, y);
 		}
 	}
 
@@ -103,11 +125,11 @@ int getDataOffset(struct ImageData imageData, int x, int y)
 }
 
 
-void setPixel(struct ImageData source, struct ImageData target, int x, int y)
+void setPixel(struct ImageData source, struct ImageData target, int sx, int sy, int tx, int ty)
 {
-	target.data[getDataOffset(target, x, y)] = source.data[getDataOffset(source, x, y)];
-	target.data[getDataOffset(target, x, y) + 1] = source.data[getDataOffset(source, x, y) + 1];
-	target.data[getDataOffset(target, x, y) + 2] = source.data[getDataOffset(source, x, y) + 2];
+	target.data[getDataOffset(target, tx, ty)] = source.data[getDataOffset(source, sx, sy)];
+	target.data[getDataOffset(target, tx, ty) + 1] = source.data[getDataOffset(source, sx, sy) + 1];
+	target.data[getDataOffset(target, tx, ty) + 2] = source.data[getDataOffset(source, sx, sy) + 2];
 }
 
 void run_library_tests()
