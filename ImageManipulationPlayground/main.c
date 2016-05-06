@@ -9,9 +9,15 @@
 
 #define COMPONENT_SIZE 3
 
-
 //TODO
+// * move image rotation code out of the test and into rotate_image_90_cw
 // * make rotate_image_90_cw handle images with different width and height dimensions
+
+//BACKLOG
+// * flip image horizontally
+// * flip image vertically
+// * scaling functions
+// * color space functions (convert to greyscale etc)
 
 struct ImageData
 {
@@ -126,7 +132,6 @@ int getDataOffset(struct ImageData imageData, int x, int y)
 {
 	return (x + y * imageData.width) * COMPONENT_SIZE;
 }
-
 
 void setPixel(struct ImageData source, struct ImageData target, int sx, int sy, int tx, int ty)
 {
