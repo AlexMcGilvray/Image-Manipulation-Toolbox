@@ -4,11 +4,17 @@
 #include "stb/stb_image.h"
 #include "stb/stb_image_write.h"
 
+
+void run_library_tests();
 int image_readwrite_test(char * const pathIn, char * const pathOut);
 
 int main(int argc, char * argv[])
 {
+	run_library_tests();
+}
 
+void run_library_tests()
+{
 	printf("Hello \n");
 
 	if (image_readwrite_test("../TestData/square_compass_200.png", "../TestDataResults/square_compass_200.png") == 0)
