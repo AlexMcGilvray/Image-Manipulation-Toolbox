@@ -9,6 +9,10 @@
 
 #define COMPONENT_SIZE 3
 
+
+//TODO
+// * make rotate_image_90_cw handle images with different width and height dimensions
+
 struct ImageData
 {
 	int width;
