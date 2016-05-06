@@ -24,7 +24,6 @@ void destroy_image(struct ImageData image);
 //util
 int getDataOffset(struct ImageData imageData, int x, int y);
 void setPixel(struct ImageData source, struct ImageData target, int sx, int sy, int tx, int ty);
-
 //image manipulations that are not in-place
 struct ImageData rotate_image_90_cw(struct ImageData imageData);
 //tests
@@ -36,8 +35,8 @@ int image_readwrite_test(const char * const pathIn, const char * const pathOut);
 int main(int argc, char * argv[])
 {
 	//run_library_tests();
-	//run_image_rotation_test();
-	run_image_copy_test();
+	run_image_rotation_test();
+	//run_image_copy_test();
 }
 
 void run_image_rotation_test()
@@ -50,18 +49,18 @@ void run_image_rotation_test()
 
 	printf("Rotating image 90 degrees clockwise \n");
 
-	//first test, just make sure we can copy the data over manually
 	for (int y = 0; y < imageData.height; ++y)
 	{
 		for (int x = 0; x < imageData.width; ++x)
 		{
-			int targetX = imageData.width - y;
-			//int targetY = imageData.
+			int targetX = imageData.width - 1 - y;
+			int targetY = x;
+			setPixel(imageData, newImageData, x, y, targetX, targetY);
 		}
 	}
 
 	if (stbi_write_bmp(outPath, newImageData.width, newImageData.height, 3, newImageData.data))
-		printf("Rotating image 90 degrees clockwise \n");
+		printf("Error \n");
 
 	destroy_image(imageData);
 	destroy_image(newImageData);
@@ -70,7 +69,7 @@ void run_image_rotation_test()
 void run_image_copy_test()
 {
 	const char * const inPath = "../TestData/square_compass_200.png";
-	const char * const outPath = "../TestDataResults/square_compass_200_rotated.png";
+	const char * const outPath = "../TestDataResults/square_compass_200_copied.png";
 
 	struct ImageData imageData = load_image(inPath);
 	struct ImageData newImageData = create_uninitialized_image(imageData.width, imageData.height);
@@ -87,7 +86,7 @@ void run_image_copy_test()
 	}
 
 	if (stbi_write_bmp(outPath, newImageData.width, newImageData.height, 3, newImageData.data))
-		printf("Rotating image 90 degrees clockwise \n");
+		printf("Error \n");
 
 	destroy_image(imageData);
 	destroy_image(newImageData);
