@@ -8,10 +8,12 @@
 #define IMP_ERROR_FAIL 1
 
 #define COMPONENT_SIZE 3
+//set this to 1 to enable console error messages
+#define DEBUG_CONSOLE 0
 
 //TODO
 // * move image rotation code out of the test and into rotate_image_90_cw
-// * make rotate_image_90_cw handle images with different width and height dimensions
+// * make rotate_image_90_cw handle images with different width and height dimensions (dont but the task above isn't done yet so I won't clear it until that is done)
 
 //BACKLOG
 // * flip image horizontally
@@ -51,11 +53,11 @@ int main(int argc, char * argv[])
 
 void run_image_rotation_test()
 {
-	const char * const inPath = "../TestData/square_compass_200.png";
-	const char * const outPath = "../TestDataResults/square_compass_200_rotated.png";
+	const char * const inPath = "../TestData/noodles_yawn.jpg";
+	const char * const outPath = "../TestDataResults/noodles_yawn_rotated.png";
 
 	struct ImageData imageData = load_image(inPath);
-	struct ImageData newImageData = create_uninitialized_image(imageData.width, imageData.height);
+	struct ImageData newImageData = create_uninitialized_image(imageData.height, imageData.width);
 
 	printf("Rotating image 90 degrees clockwise \n");
 
@@ -63,13 +65,19 @@ void run_image_rotation_test()
 	{
 		for (int x = 0; x < imageData.width; ++x)
 		{
-			int targetX = imageData.width - 1 - y;
+			int targetX = newImageData.width - 1 - y;
 			int targetY = x;
+#ifdef DEBUG_CONSOLE
+			if (targetX > newImageData.width)
+				printf("targetx bigger than width \n");
+			if (targetY > newImageData.height)
+				printf("targety bigger than height \n");
+#endif
 			setPixel(imageData, newImageData, x, y, targetX, targetY);
 		}
 	}
 
-	if (stbi_write_bmp(outPath, newImageData.width, newImageData.height, 3, newImageData.data))
+	if (!stbi_write_bmp(outPath, newImageData.width, newImageData.height, 3, newImageData.data))
 		printf("Error \n");
 
 	destroy_image(imageData);
@@ -110,6 +118,8 @@ struct ImageData load_image(const char * const pathIn)
 	imageData.width = w;
 	imageData.height = h;
 	imageData.data = data;
+	if (data == 0)
+		printf("load_image error \n");
 	return imageData;
 }
 
@@ -126,7 +136,6 @@ void destroy_image(struct ImageData image)
 {
 	free(image.data);
 }
-
 
 int getDataOffset(struct ImageData imageData, int x, int y)
 {
