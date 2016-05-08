@@ -18,8 +18,8 @@ struct ImageData create_uninitialized_image(int width, int height);
 void destroy_image(struct ImageData image);
 
 //util
-int getDataOffset(struct ImageData imageData, int x, int y);
-void setPixel(struct ImageData source, struct ImageData target, int sx, int sy, int tx, int ty);
+int get_data_offset(struct ImageData imageData, int x, int y);
+void set_pixel(struct ImageData source, struct ImageData target, int sx, int sy, int tx, int ty);
 //image manipulations that are not in-place
 struct ImageData rotate_image_90_cw(struct ImageData imageData);
 
