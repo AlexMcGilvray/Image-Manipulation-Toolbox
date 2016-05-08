@@ -144,9 +144,11 @@
   <ItemGroup>
     <ClCompile Include="image_data.c" />
     <ClCompile Include="main.c" />
+    <ClCompile Include="tests.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="image_data.h" />
+    <ClInclude Include="tests.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -2,6 +2,9 @@
 #ifndef IMAGE_DATA_H
 #define IMAGE_DATA_H
 
+#define IMP_ERROR_SUCCESS 0
+#define IMP_ERROR_FAIL 1
+
 struct ImageData
 {
 	int width;
