@@ -34,16 +34,16 @@ void destroy_image(struct ImageData image)
 	free(image.data);
 }
 
-int getDataOffset(struct ImageData imageData, int x, int y)
+int get_data_offset(struct ImageData imageData, int x, int y)
 {
 	return (x + y * imageData.width) * COMPONENT_SIZE;
 }
 
-void setPixel(struct ImageData source, struct ImageData target, int sx, int sy, int tx, int ty)
+void set_pixel(struct ImageData source, struct ImageData target, int sx, int sy, int tx, int ty)
 {
-	target.data[getDataOffset(target, tx, ty)] = source.data[getDataOffset(source, sx, sy)];
-	target.data[getDataOffset(target, tx, ty) + 1] = source.data[getDataOffset(source, sx, sy) + 1];
-	target.data[getDataOffset(target, tx, ty) + 2] = source.data[getDataOffset(source, sx, sy) + 2];
+	target.data[get_data_offset(target, tx, ty)] = source.data[get_data_offset(source, sx, sy)];
+	target.data[get_data_offset(target, tx, ty) + 1] = source.data[get_data_offset(source, sx, sy) + 1];
+	target.data[get_data_offset(target, tx, ty) + 2] = source.data[get_data_offset(source, sx, sy) + 2];
 }
 
 struct ImageData rotate_image_90_cw(struct ImageData imageData)
@@ -61,7 +61,7 @@ struct ImageData rotate_image_90_cw(struct ImageData imageData)
 			if (targetY > newImageData.height)
 				printf("targety bigger than height \n");
 #endif
-			setPixel(imageData, newImageData, x, y, targetX, targetY);
+			set_pixel(imageData, newImageData, x, y, targetX, targetY);
 		}
 	}
 	return newImageData;

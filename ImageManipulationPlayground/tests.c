@@ -29,20 +29,19 @@ void run_image_copy_test()
 
 	printf("Manual image copy \n");
 
-	//first test, just make sure we can copy the data over manually
 	for (int y = 0; y < imageData.height; ++y)
 	{
 		for (int x = 0; x < imageData.width; ++x)
 		{
-			setPixel(imageData, newImageData, x, y, x, y);
+			set_pixel(imageData, newImageData, x, y, x, y);
 		}
 	}
 
 	if (stbi_write_bmp(outPath, newImageData.width, newImageData.height, 3, newImageData.data))
 		printf("Error \n");
 
-	destroy_image(imageData);
 	destroy_image(newImageData);
+	destroy_image(imageData);
 }
 
 void run_library_tests()
@@ -63,10 +62,10 @@ int image_readwrite_test(const char * const pathIn, const char * const pathOut)
 	unsigned char *data = stbi_load(pathIn, &x, &y, &n, 0);
 
 	if (!data)
-		return 1;
+		return IMP_ERROR_FAIL;
 
 	if (stbi_write_bmp(pathOut, x, y, n, data))
-		return 0;
+		return IMP_ERROR_SUCCESS;
 
-	return 1;
+	return IMP_ERROR_FAIL;
 }
