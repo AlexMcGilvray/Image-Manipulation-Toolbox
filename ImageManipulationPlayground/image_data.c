@@ -45,3 +45,24 @@ void setPixel(struct ImageData source, struct ImageData target, int sx, int sy, 
 	target.data[getDataOffset(target, tx, ty) + 1] = source.data[getDataOffset(source, sx, sy) + 1];
 	target.data[getDataOffset(target, tx, ty) + 2] = source.data[getDataOffset(source, sx, sy) + 2];
 }
+
+struct ImageData rotate_image_90_cw(struct ImageData imageData)
+{
+	struct ImageData newImageData = create_uninitialized_image(imageData.height, imageData.width);
+	for (int y = 0; y < imageData.height; ++y)
+	{
+		for (int x = 0; x < imageData.width; ++x)
+		{
+			int targetX = newImageData.width - 1 - y;
+			int targetY = x;
+#ifdef DEBUG_CONSOLE
+			if (targetX > newImageData.width)
+				printf("targetx bigger than width \n");
+			if (targetY > newImageData.height)
+				printf("targety bigger than height \n");
+#endif
+			setPixel(imageData, newImageData, x, y, targetX, targetY);
+		}
+	}
+	return newImageData;
+}

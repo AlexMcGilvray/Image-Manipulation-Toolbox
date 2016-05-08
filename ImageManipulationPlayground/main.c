@@ -1,10 +1,8 @@
 #include <stdio.h>
-
 #include "image_data.h"
 
 #define IMP_ERROR_SUCCESS 0
 #define IMP_ERROR_FAIL 1
-
 
 //set this to 1 to enable console error messages
 #define DEBUG_CONSOLE 0
@@ -21,7 +19,6 @@
 // * scaling functions
 // * color space functions (convert to greyscale etc)
 
- 
 //tests
 void run_image_rotation_test();
 void run_image_copy_test();
@@ -37,35 +34,19 @@ int main(int argc, char * argv[])
 
 void run_image_rotation_test()
 {
+	printf("Rotating image 90 degrees clockwise \n");
+
 	const char * const inPath = "../TestData/noodles_yawn.jpg";
 	const char * const outPath = "../TestDataResults/noodles_yawn_rotated.png";
 
 	struct ImageData imageData = load_image(inPath);
-	struct ImageData newImageData = create_uninitialized_image(imageData.height, imageData.width);
-
-	printf("Rotating image 90 degrees clockwise \n");
-
-	for (int y = 0; y < imageData.height; ++y)
-	{
-		for (int x = 0; x < imageData.width; ++x)
-		{
-			int targetX = newImageData.width - 1 - y;
-			int targetY = x;
-#ifdef DEBUG_CONSOLE
-			if (targetX > newImageData.width)
-				printf("targetx bigger than width \n");
-			if (targetY > newImageData.height)
-				printf("targety bigger than height \n");
-#endif
-			setPixel(imageData, newImageData, x, y, targetX, targetY);
-		}
-	}
+	struct ImageData newImageData = rotate_image_90_cw(imageData);
 
 	if (!stbi_write_bmp(outPath, newImageData.width, newImageData.height, 3, newImageData.data))
 		printf("Error \n");
 
-	destroy_image(imageData);
 	destroy_image(newImageData);
+	destroy_image(imageData); 
 }
 
 void run_image_copy_test()
