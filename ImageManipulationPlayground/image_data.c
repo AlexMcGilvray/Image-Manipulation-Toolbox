@@ -95,8 +95,6 @@ struct ImageData rotate_image_90_ccw(struct ImageData imageData)
 	return newImageData;
 }
 
-//This is my attempt to do a greyscale conversion before I look up the algorithm to see what my approach would be with no 
-//prior knowledge.
 struct ImageData rotate_image_180(struct ImageData imageData)
 {
 	struct ImageData newImageData = create_uninitialized_image(imageData.width, imageData.height);
@@ -118,6 +116,8 @@ struct ImageData rotate_image_180(struct ImageData imageData)
 	return newImageData;
 }
 
+//This is my attempt to do a greyscale conversion before I look up the algorithm to see what my approach would be with no 
+//prior knowledge.
 struct ImageData convert_to_greyscale(struct ImageData imageData)
 {
 	struct ImageData newImageData = create_uninitialized_image(imageData.width, imageData.height);
