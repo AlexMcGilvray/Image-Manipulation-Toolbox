@@ -22,6 +22,13 @@ void run_image_rotation_tests()
 	get_running_time(run_image_rotation_180_test);
 }
 
+void run_image_color_conversion_tests()
+{
+	prep_running_time();
+	printf("run_convert_to_greyscale_test : ");
+	get_running_time(run_convert_to_greyscale_test);
+}
+
 void run_image_rotation_cw90_test()
 {
 	const char * const inPath = "../TestData/noodles_yawn.jpg";
@@ -67,6 +74,21 @@ void run_image_rotation_180_test()
 	destroy_image(imageData);
 }
 
+void run_convert_to_greyscale_test()
+{
+	const char * const inPath = "../TestData/noodles_yawn.jpg";
+	const char * const outPath = "../TestDataResults/noodles_yawn_greyscale.png";
+
+	struct ImageData imageData = load_image(inPath);
+	struct ImageData newImageData = convert_to_greyscale(imageData);
+
+	if (!stbi_write_png(outPath, newImageData.width, newImageData.height, 3, newImageData.data, 0))
+		printf("Error \n");
+
+	destroy_image(newImageData);
+	destroy_image(imageData);
+}
+
 void run_image_copy_test()
 {
 	const char * const inPath = "../TestData/square_compass_200.png";
@@ -81,7 +103,7 @@ void run_image_copy_test()
 	{
 		for (int x = 0; x < imageData.width; ++x)
 		{
-			set_pixel(imageData, newImageData, x, y, x, y);
+			set_pixel_from_source(imageData, newImageData, x, y, x, y);
 		}
 	}
 
