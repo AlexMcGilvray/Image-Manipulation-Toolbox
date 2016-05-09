@@ -2,9 +2,13 @@
 #ifndef TESTS_H
 #define TESTS_H
 
-//tests
-void run_image_cw90_rotation_test();
-void run_image_ccw90_rotation_test();
+//timed test groups
+void run_image_rotation_tests();
+
+//individual tests
+void run_image_rotation_cw90_test();
+void run_image_rotation_ccw90_test();
+void run_image_rotation_180_test();
 void run_image_copy_test();
 void run_library_tests();
 int image_readwrite_test(const char * const pathIn, const char * const pathOut);

@@ -18,8 +18,7 @@
 int main(int argc, char * argv[])
 {
 	//run_library_tests();
-	run_image_cw90_rotation_test();
-	run_image_ccw90_rotation_test();
+	run_image_rotation_tests();
 	//run_image_copy_test();
 }
 

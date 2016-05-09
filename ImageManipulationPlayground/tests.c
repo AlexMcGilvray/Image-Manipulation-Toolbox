@@ -1,13 +1,29 @@
 #include "tests.h"
-#include <stdio.h>
+//imp
 #include "image_data.h"
+//stb
 #include "stb/stb_image.h"
 #include "stb/stb_image_write.h"
+//std
+#include <stdio.h>
+#include <time.h>
 
-void run_image_cw90_rotation_test()
+#define prep_running_time() clock_t start; clock_t diff; int msec;
+#define get_running_time(a) start=clock(); a(); diff = clock() - start; msec = diff * 1000 / CLOCKS_PER_SEC; printf("msecs: %d\n",msec);
+
+void run_image_rotation_tests()
 {
-	printf("Rotating image 90 degrees clockwise \n");
+	prep_running_time();
+	printf("run_image_cw90_rotation_test : ");
+	get_running_time(run_image_rotation_cw90_test);
+	printf("run_image_ccw90_rotation_test : ");
+	get_running_time(run_image_rotation_ccw90_test);
+	printf("run_image_rotation_180_test : ");
+	get_running_time(run_image_rotation_180_test);
+}
 
+void run_image_rotation_cw90_test()
+{
 	const char * const inPath = "../TestData/noodles_yawn.jpg";
 	const char * const outPath = "../TestDataResults/noodles_yawn_rotated_90_cw.png";
 
@@ -21,10 +37,8 @@ void run_image_cw90_rotation_test()
 	destroy_image(imageData);
 }
 
-void run_image_ccw90_rotation_test()
+void run_image_rotation_ccw90_test()
 {
-	printf("Rotating image 90 degrees clockwise \n");
-
 	const char * const inPath = "../TestData/noodles_yawn.jpg";
 	const char * const outPath = "../TestDataResults/noodles_yawn_rotated_90_ccw.png";
 
@@ -32,6 +46,21 @@ void run_image_ccw90_rotation_test()
 	struct ImageData newImageData = rotate_image_90_ccw(imageData);
 
 	if (!stbi_write_png(outPath, newImageData.width, newImageData.height, 3, newImageData.data,0))
+		printf("Error \n");
+
+	destroy_image(newImageData);
+	destroy_image(imageData);
+}
+
+void run_image_rotation_180_test()
+{
+	const char * const inPath = "../TestData/noodles_yawn.jpg";
+	const char * const outPath = "../TestDataResults/noodles_yawn_rotated_180.png";
+
+	struct ImageData imageData = load_image(inPath);
+	struct ImageData newImageData = rotate_image_180(imageData);
+
+	if (!stbi_write_png(outPath, newImageData.width, newImageData.height, 3, newImageData.data, 0))
 		printf("Error \n");
 
 	destroy_image(newImageData);

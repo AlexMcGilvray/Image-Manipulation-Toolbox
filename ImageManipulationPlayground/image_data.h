@@ -24,5 +24,6 @@ void set_pixel(struct ImageData source, struct ImageData target, int sx, int sy,
 //image manipulations that are not in-place
 struct ImageData rotate_image_90_cw(struct ImageData imageData);
 struct ImageData rotate_image_90_ccw(struct ImageData imageData);
+struct ImageData rotate_image_180(struct ImageData imageData);
 
 #endif
