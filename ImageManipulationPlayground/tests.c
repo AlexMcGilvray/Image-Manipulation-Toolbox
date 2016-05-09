@@ -1,18 +1,37 @@
 #include "tests.h"
 #include <stdio.h>
 #include "image_data.h"
+#include "stb/stb_image.h"
+#include "stb/stb_image_write.h"
 
-void run_image_rotation_test()
+void run_image_cw90_rotation_test()
 {
 	printf("Rotating image 90 degrees clockwise \n");
 
 	const char * const inPath = "../TestData/noodles_yawn.jpg";
-	const char * const outPath = "../TestDataResults/noodles_yawn_rotated.png";
+	const char * const outPath = "../TestDataResults/noodles_yawn_rotated_90_cw.png";
 
 	struct ImageData imageData = load_image(inPath);
 	struct ImageData newImageData = rotate_image_90_cw(imageData);
 
-	if (!stbi_write_bmp(outPath, newImageData.width, newImageData.height, 3, newImageData.data))
+	if (!stbi_write_png(outPath, newImageData.width, newImageData.height, 3, newImageData.data,0))
+		printf("Error \n");
+
+	destroy_image(newImageData);
+	destroy_image(imageData);
+}
+
+void run_image_ccw90_rotation_test()
+{
+	printf("Rotating image 90 degrees clockwise \n");
+
+	const char * const inPath = "../TestData/noodles_yawn.jpg";
+	const char * const outPath = "../TestDataResults/noodles_yawn_rotated_90_ccw.png";
+
+	struct ImageData imageData = load_image(inPath);
+	struct ImageData newImageData = rotate_image_90_ccw(imageData);
+
+	if (!stbi_write_png(outPath, newImageData.width, newImageData.height, 3, newImageData.data,0))
 		printf("Error \n");
 
 	destroy_image(newImageData);
@@ -46,14 +65,12 @@ void run_image_copy_test()
 
 void run_library_tests()
 {
-	printf("Hello \n");
+	printf("Running library tests \n");
 
 	if (image_readwrite_test("../TestData/square_compass_200.png", "../TestDataResults/square_compass_200.png") == IMP_ERROR_SUCCESS)
 		printf("Test passed successfully");
 	else
 		printf("Error");
-
-	getchar();
 }
 
 int image_readwrite_test(const char * const pathIn, const char * const pathOut)

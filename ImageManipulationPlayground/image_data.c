@@ -66,3 +66,25 @@ struct ImageData rotate_image_90_cw(struct ImageData imageData)
 	}
 	return newImageData;
 }
+
+struct ImageData rotate_image_90_ccw(struct ImageData imageData)
+{
+	struct ImageData newImageData = create_uninitialized_image(imageData.height, imageData.width);
+	for (int y = 0; y < imageData.height; ++y)
+	{
+		for (int x = 0; x < imageData.width; ++x)
+		{
+			int targetX = y;
+			int targetY = x;
+#ifdef DEBUG_CONSOLE
+			if (targetX > newImageData.width)
+				printf("targetx bigger than width \n");
+			if (targetY > newImageData.height)
+				printf("targety bigger than height \n");
+#endif
+			set_pixel(imageData, newImageData, x, y, targetX, targetY);
+		}
+	}
+	return newImageData;
+}
+
