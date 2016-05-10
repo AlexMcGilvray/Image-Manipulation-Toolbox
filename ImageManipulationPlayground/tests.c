@@ -26,7 +26,9 @@ void run_image_color_conversion_tests()
 {
 	prep_running_time();
 	printf("run_convert_to_greyscale_test : ");
-	get_running_time(run_convert_to_greyscale_test);
+	get_running_time(run_convert_to_greyscale_average_test);
+	printf("run_convert_to_greyscale_luminosity_test : ");
+	get_running_time(run_convert_to_greyscale_luminosity_test);
 }
 
 void run_image_rotation_cw90_test()
@@ -74,13 +76,28 @@ void run_image_rotation_180_test()
 	destroy_image(imageData);
 }
 
-void run_convert_to_greyscale_test()
+void run_convert_to_greyscale_average_test()
 {
 	const char * const inPath = "../TestData/noodles_yawn.jpg";
-	const char * const outPath = "../TestDataResults/noodles_yawn_greyscale.png";
+	const char * const outPath = "../TestDataResults/noodles_yawn_greyscale_average.png";
 
 	struct ImageData imageData = load_image(inPath);
-	struct ImageData newImageData = convert_to_greyscale(imageData);
+	struct ImageData newImageData = convert_to_greyscale_average(imageData);
+
+	if (!stbi_write_png(outPath, newImageData.width, newImageData.height, 3, newImageData.data, 0))
+		printf("Error \n");
+
+	destroy_image(newImageData);
+	destroy_image(imageData);
+}
+
+void run_convert_to_greyscale_luminosity_test()
+{
+	const char * const inPath = "../TestData/noodles_yawn.jpg";
+	const char * const outPath = "../TestDataResults/noodles_yawn_greyscale_luminosity.png";
+
+	struct ImageData imageData = load_image(inPath);
+	struct ImageData newImageData = convert_to_greyscale_luminosity(imageData);
 
 	if (!stbi_write_png(outPath, newImageData.width, newImageData.height, 3, newImageData.data, 0))
 		printf("Error \n");
