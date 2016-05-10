@@ -62,12 +62,6 @@ struct ImageData rotate_image_90_cw(struct ImageData imageData)
 		{
 			int targetX = newImageData.width - 1 - y;
 			int targetY = x;
-#ifdef DEBUG_CONSOLE
-			if (targetX > newImageData.width)
-				printf("targetx bigger than width \n");
-			if (targetY > newImageData.height)
-				printf("targety bigger than height \n");
-#endif
 			set_pixel_from_source(imageData, newImageData, x, y, targetX, targetY);
 		}
 	}
@@ -83,12 +77,6 @@ struct ImageData rotate_image_90_ccw(struct ImageData imageData)
 		{
 			int targetX = y;
 			int targetY = x;
-#ifdef DEBUG_CONSOLE
-			if (targetX > newImageData.width)
-				printf("targetx bigger than width \n");
-			if (targetY > newImageData.height)
-				printf("targety bigger than height \n");
-#endif
 			set_pixel_from_source(imageData, newImageData, x, y, targetX, targetY);
 		}
 	}
@@ -104,12 +92,6 @@ struct ImageData rotate_image_180(struct ImageData imageData)
 		{
 			int targetX = imageData.width - 1 - x;
 			int targetY = imageData.height - 1 - y;
-#ifdef DEBUG_CONSOLE
-			if (targetX > newImageData.width)
-				printf("targetx bigger than width \n");
-			if (targetY > newImageData.height)
-				printf("targety bigger than height \n");
-#endif
 			set_pixel_from_source(imageData, newImageData, x, y, targetX, targetY);
 		}
 	}
