@@ -107,11 +107,11 @@ struct ImageData convert_to_greyscale_average(struct ImageData imageData)
 	{
 		for (int x = 0; x < imageData.width; ++x)
 		{
-			unsigned char r = imageData.data[get_data_offset(imageData, x, y)];
-			unsigned char g = imageData.data[get_data_offset(imageData, x, y) + 1];
-			unsigned char b = imageData.data[get_data_offset(imageData, x, y) + 2];
-			int totalVal = r + g + b;
-			unsigned char finalVal = (totalVal / 3);
+			const unsigned char r = imageData.data[get_data_offset(imageData, x, y)];
+			const unsigned char g = imageData.data[get_data_offset(imageData, x, y) + 1];
+			const unsigned char b = imageData.data[get_data_offset(imageData, x, y) + 2];
+			const int totalVal = r + g + b;
+			const unsigned char finalVal = (totalVal / 3);
 			set_pixel_rgb(newImageData, x, y, finalVal, finalVal, finalVal);
 		}
 	}
@@ -120,18 +120,18 @@ struct ImageData convert_to_greyscale_average(struct ImageData imageData)
 
 struct ImageData convert_to_greyscale_luminosity(struct ImageData imageData)
 {
-	float rWeight = 0.21f;
-	float gWeight = 0.72f;
-	float bWeight = 0.07f;
+	const float rWeight = 0.21f;
+	const float gWeight = 0.72f;
+	const float bWeight = 0.07f;
 	struct ImageData newImageData = create_uninitialized_image(imageData.width, imageData.height);
 	for (int y = 0; y < imageData.height; ++y)
 	{
 		for (int x = 0; x < imageData.width; ++x)
 		{
-			unsigned char r = imageData.data[get_data_offset(imageData, x, y)];
-			unsigned char g = imageData.data[get_data_offset(imageData, x, y) + 1];
-			unsigned char b = imageData.data[get_data_offset(imageData, x, y) + 2];
-			int finalVal = (r * rWeight) + (g * gWeight) + (b * bWeight);
+			const unsigned char r = imageData.data[get_data_offset(imageData, x, y)];
+			const unsigned char g = imageData.data[get_data_offset(imageData, x, y) + 1];
+			const unsigned char b = imageData.data[get_data_offset(imageData, x, y) + 2];
+			const int finalVal = (r * rWeight) + (g * gWeight) + (b * bWeight);
 			set_pixel_rgb(newImageData, x, y, finalVal, finalVal, finalVal);
 		}
 	}

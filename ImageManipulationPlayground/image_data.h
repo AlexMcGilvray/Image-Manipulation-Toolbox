@@ -26,7 +26,6 @@ void set_pixel_rgb(struct ImageData target, int x, int y, unsigned char r, unsig
 struct ImageData rotate_image_90_cw(struct ImageData imageData);
 struct ImageData rotate_image_90_ccw(struct ImageData imageData);
 struct ImageData rotate_image_180(struct ImageData imageData);
-
 struct ImageData convert_to_greyscale_average(struct ImageData imageData);
 struct ImageData convert_to_greyscale_luminosity(struct ImageData imageData);
 
