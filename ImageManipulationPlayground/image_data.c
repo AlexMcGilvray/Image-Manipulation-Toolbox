@@ -60,8 +60,8 @@ struct ImageData rotate_image_90_cw(struct ImageData imageData)
 	{
 		for (int x = 0; x < imageData.width; ++x)
 		{
-			int targetX = newImageData.width - 1 - y;
-			int targetY = x;
+			const int targetX = newImageData.width - 1 - y;
+			const int targetY = x;
 			set_pixel_from_source(imageData, newImageData, x, y, targetX, targetY);
 		}
 	}
@@ -75,8 +75,8 @@ struct ImageData rotate_image_90_ccw(struct ImageData imageData)
 	{
 		for (int x = 0; x < imageData.width; ++x)
 		{
-			int targetX = y;
-			int targetY = x;
+			const int targetX = y;
+			const int targetY = x;
 			set_pixel_from_source(imageData, newImageData, x, y, targetX, targetY);
 		}
 	}
@@ -90,8 +90,8 @@ struct ImageData rotate_image_180(struct ImageData imageData)
 	{
 		for (int x = 0; x < imageData.width; ++x)
 		{
-			int targetX = imageData.width - 1 - x;
-			int targetY = imageData.height - 1 - y;
+			const int targetX = imageData.width - 1 - x;
+			const int targetY = imageData.height - 1 - y;
 			set_pixel_from_source(imageData, newImageData, x, y, targetX, targetY);
 		}
 	}
@@ -145,8 +145,8 @@ struct ImageData flip_image_vertically(struct ImageData imageData)
 	{
 		for (int x = 0; x < imageData.width; ++x)
 		{
-			int targetX = x;
-			int targetY = imageData.height - 1 - y;
+			const int targetX = x;
+			const int targetY = imageData.height - 1 - y;
 			set_pixel_from_source(imageData, newImageData, x, y, targetX, targetY);
 		}
 	}
@@ -160,8 +160,8 @@ struct ImageData flip_image_horizontally(struct ImageData imageData)
 	{
 		for (int x = 0; x < imageData.width; ++x)
 		{
-			int targetX = imageData.width - 1 - x;
-			int targetY = y;
+			const int targetX = imageData.width - 1 - x;
+			const int targetY = y;
 			set_pixel_from_source(imageData, newImageData, x, y, targetX, targetY);
 		}
 	}
