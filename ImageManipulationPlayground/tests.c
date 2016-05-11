@@ -35,7 +35,9 @@ void run_image_flip_tests()
 {
 	prep_running_time();
 	printf("run_image_flip_vertically_test : ");
-	get_running_time(run_image_flip_vertically_test);
+	get_running_time(run_flip_image_vertically_test);
+	printf("run_flip_image_horizontally_test : ");
+	get_running_time(run_flip_image_horizontally_test);
 }
 
 void run_image_rotation_cw90_test()
@@ -113,13 +115,28 @@ void run_convert_to_greyscale_luminosity_test()
 	destroy_image(imageData);
 }
 
-void run_image_flip_vertically_test()
+void run_flip_image_vertically_test()
 {
 	const char * const inPath = "../TestData/noodles_yawn.jpg";
 	const char * const outPath = "../TestDataResults/noodles_yawn_flip_vertically.png";
 
 	struct ImageData imageData = load_image(inPath);
 	struct ImageData newImageData = flip_image_vertically(imageData);
+
+	if (!stbi_write_png(outPath, newImageData.width, newImageData.height, 3, newImageData.data, 0))
+		printf("Error \n");
+
+	destroy_image(newImageData);
+	destroy_image(imageData);
+}
+
+void run_flip_image_horizontally_test()
+{
+	const char * const inPath = "../TestData/noodles_yawn.jpg";
+	const char * const outPath = "../TestDataResults/noodles_yawn_flip_horizontally.png";
+
+	struct ImageData imageData = load_image(inPath);
+	struct ImageData newImageData = flip_image_horizontally(imageData);
 
 	if (!stbi_write_png(outPath, newImageData.width, newImageData.height, 3, newImageData.data, 0))
 		printf("Error \n");

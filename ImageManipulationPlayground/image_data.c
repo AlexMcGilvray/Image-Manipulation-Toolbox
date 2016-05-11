@@ -153,3 +153,18 @@ struct ImageData flip_image_vertically(struct ImageData imageData)
 	return newImageData;
 }
 
+struct ImageData flip_image_horizontally(struct ImageData imageData)
+{
+	struct ImageData newImageData = create_uninitialized_image(imageData.width, imageData.height);
+	for (int y = 0; y < imageData.height; ++y)
+	{
+		for (int x = 0; x < imageData.width; ++x)
+		{
+			int targetX = imageData.width - 1 - x;
+			int targetY = y;
+			set_pixel_from_source(imageData, newImageData, x, y, targetX, targetY);
+		}
+	}
+	return newImageData;
+}
+

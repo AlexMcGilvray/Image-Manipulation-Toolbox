@@ -29,4 +29,5 @@ struct ImageData rotate_image_180(struct ImageData imageData);
 struct ImageData convert_to_greyscale_average(struct ImageData imageData);
 struct ImageData convert_to_greyscale_luminosity(struct ImageData imageData);
 struct ImageData flip_image_vertically(struct ImageData imageData);
+struct ImageData flip_image_horizontally(struct ImageData imageData);
 #endif
