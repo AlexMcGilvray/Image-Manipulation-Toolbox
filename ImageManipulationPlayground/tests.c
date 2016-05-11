@@ -31,6 +31,13 @@ void run_image_color_conversion_tests()
 	get_running_time(run_convert_to_greyscale_luminosity_test);
 }
 
+void run_image_flip_tests()
+{
+	prep_running_time();
+	printf("run_image_flip_vertically_test : ");
+	get_running_time(run_image_flip_vertically_test);
+}
+
 void run_image_rotation_cw90_test()
 {
 	const char * const inPath = "../TestData/noodles_yawn.jpg";
@@ -98,6 +105,21 @@ void run_convert_to_greyscale_luminosity_test()
 
 	struct ImageData imageData = load_image(inPath);
 	struct ImageData newImageData = convert_to_greyscale_luminosity(imageData);
+
+	if (!stbi_write_png(outPath, newImageData.width, newImageData.height, 3, newImageData.data, 0))
+		printf("Error \n");
+
+	destroy_image(newImageData);
+	destroy_image(imageData);
+}
+
+void run_image_flip_vertically_test()
+{
+	const char * const inPath = "../TestData/noodles_yawn.jpg";
+	const char * const outPath = "../TestDataResults/noodles_yawn_flip_vertically.png";
+
+	struct ImageData imageData = load_image(inPath);
+	struct ImageData newImageData = flip_image_vertically(imageData);
 
 	if (!stbi_write_png(outPath, newImageData.width, newImageData.height, 3, newImageData.data, 0))
 		printf("Error \n");

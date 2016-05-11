@@ -18,8 +18,9 @@
 int main(int argc, char * argv[])
 {
 	//run_library_tests();
-	//run_image_rotation_tests();
-	run_image_color_conversion_tests(); 
+	run_image_rotation_tests();
+	//run_image_color_conversion_tests(); 
+	run_image_flip_tests();
 }
 
 //DONE

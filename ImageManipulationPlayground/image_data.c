@@ -131,8 +131,23 @@ struct ImageData convert_to_greyscale_luminosity(struct ImageData imageData)
 			const unsigned char r = imageData.data[get_data_offset(imageData, x, y)];
 			const unsigned char g = imageData.data[get_data_offset(imageData, x, y) + 1];
 			const unsigned char b = imageData.data[get_data_offset(imageData, x, y) + 2];
-			const int finalVal = (r * rWeight) + (g * gWeight) + (b * bWeight);
+			const int finalVal = (int)((r * rWeight) + (g * gWeight) + (b * bWeight));
 			set_pixel_rgb(newImageData, x, y, finalVal, finalVal, finalVal);
+		}
+	}
+	return newImageData;
+}
+
+struct ImageData flip_image_vertically(struct ImageData imageData)
+{
+	struct ImageData newImageData = create_uninitialized_image(imageData.width, imageData.height);
+	for (int y = 0; y < imageData.height; ++y)
+	{
+		for (int x = 0; x < imageData.width; ++x)
+		{
+			int targetX = x;
+			int targetY = imageData.height - 1 - y;
+			set_pixel_from_source(imageData, newImageData, x, y, targetX, targetY);
 		}
 	}
 	return newImageData;
