@@ -226,15 +226,8 @@ struct ImageData flip_image_vertically(struct ImageData imageData)
 	struct ImageData newImageData = create_uninitialized_image(imageData.width, imageData.height);
 	for (int y = 0; y < imageData.height; ++y)
 	{
-		//copy_range(imageData,newImageData,get_data_offset(imageData,0,y))
-
-
-		for (int x = 0; x < imageData.width; ++x)
-		{
-			const int targetX = x;
-			const int targetY = imageData.height - 1 - y;
-			set_pixel_from_source(imageData, newImageData, x, y, targetX, targetY);
-		}
+		int length = imageData.width - 1;
+		copy_range(imageData, newImageData, length, get_data_offset(imageData, 0, y), get_data_offset(newImageData, 0, newImageData.height - 1 - y));
 	}
 	return newImageData;
 }
