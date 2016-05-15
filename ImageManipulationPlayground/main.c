@@ -6,14 +6,14 @@
 #define DEBUG_CONSOLE 0
 
 //TODO
-// * fix style for function names (underscores for spaces, all lowercase)
 // * update support for different component sizes rather than just hard coding 3
+// * write some logging functions to dump test results to a text file
 
 //BACKLOG
-// * flip image horizontally
-// * flip image vertically
+
 // * scaling functions
-// * color space functions (convert to greyscale etc)
+// * move image_data into it's own external lib/header 
+// * make driver program so various tests can be run using command line params instead of altering main and re-compiling
 
 int main(int argc, char * argv[])
 {
@@ -24,5 +24,9 @@ int main(int argc, char * argv[])
 }
 
 //DONE
+// * fix style for function names (underscores for spaces, all lowercase)
 // * move image rotation code out of the test and into rotate_image_90_cw
 // * make rotate_image_90_cw handle images with different width and height dimensions (done but the task above isn't done yet so I won't clear it until that is done)
+// * flip image horizontally
+// * flip image vertically
+// * color space functions (convert to greyscale etc)

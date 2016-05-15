@@ -235,6 +235,7 @@ struct ImageData flip_image_vertically(struct ImageData imageData)
 struct ImageData flip_image_horizontally(struct ImageData imageData)
 {
 	struct ImageData newImageData = create_uninitialized_image(imageData.width, imageData.height);
+
 	return newImageData;
 }
 
