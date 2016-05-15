@@ -7,8 +7,7 @@
 
 #define COMPONENT_SIZE 3
 
-#pragma region Naive Implementation
-#ifdef NAIVE_IMPLEMENTATION
+
 
 struct ImageData load_image(const char * const pathIn)
 {
@@ -55,6 +54,9 @@ void set_pixel_rgb(struct ImageData target, int x, int y, unsigned char r, unsig
 	target.data[get_data_offset(target, x, y) + 1] = g;
 	target.data[get_data_offset(target, x, y) + 2] = b;
 }
+
+#pragma region Naive implementation
+#ifdef NAIVE_IMPLEMENTATION
 
 struct ImageData rotate_image_90_cw(struct ImageData imageData)
 {
@@ -173,3 +175,56 @@ struct ImageData flip_image_horizontally(struct ImageData imageData)
 
 #endif
 #pragma endregion
+
+#pragma region Memcopy batching implementation
+#ifdef MEMCOPY_BATCH_OPERATION_IMPLEMENTATION
+struct ImageData rotate_image_90_cw(struct ImageData imageData)
+{
+	struct ImageData newImageData = create_uninitialized_image(imageData.height, imageData.width);
+	return newImageData;
+}
+
+struct ImageData rotate_image_90_ccw(struct ImageData imageData)
+{
+	struct ImageData newImageData = create_uninitialized_image(imageData.height, imageData.width);
+	return newImageData;
+}
+
+struct ImageData rotate_image_180(struct ImageData imageData)
+{
+	struct ImageData newImageData = create_uninitialized_image(imageData.width, imageData.height);
+	return newImageData;
+}
+
+//This is my attempt to do a greyscale conversion before I look up the algorithm to see what my approach would be with no 
+//prior knowledge.
+struct ImageData convert_to_greyscale_average(struct ImageData imageData)
+{
+	struct ImageData newImageData = create_uninitialized_image(imageData.width, imageData.height);
+	return newImageData;
+}
+
+struct ImageData convert_to_greyscale_luminosity(struct ImageData imageData)
+{
+	const float rWeight = 0.21f;
+	const float gWeight = 0.72f;
+	const float bWeight = 0.07f;
+	struct ImageData newImageData = create_uninitialized_image(imageData.width, imageData.height);
+	return newImageData;
+}
+
+struct ImageData flip_image_vertically(struct ImageData imageData)
+{
+	struct ImageData newImageData = create_uninitialized_image(imageData.width, imageData.height);
+	return newImageData;
+}
+
+struct ImageData flip_image_horizontally(struct ImageData imageData)
+{
+	struct ImageData newImageData = create_uninitialized_image(imageData.width, imageData.height);
+	return newImageData;
+}
+
+#endif
+#pragma endregion
+
