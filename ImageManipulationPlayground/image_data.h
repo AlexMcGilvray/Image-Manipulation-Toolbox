@@ -5,6 +5,9 @@
 #define IMP_ERROR_SUCCESS 0
 #define IMP_ERROR_FAIL 1
 
+#define NAIVE_IMPLEMENTATION
+#define MEMCOPY_BATCH_OPERATION_IMPLEMENTATION
+
 struct ImageData
 {
 	int width;

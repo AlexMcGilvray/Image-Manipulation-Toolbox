@@ -7,6 +7,9 @@
 
 #define COMPONENT_SIZE 3
 
+#pragma region Naive Implementation
+#ifdef NAIVE_IMPLEMENTATION
+
 struct ImageData load_image(const char * const pathIn)
 {
 	struct ImageData imageData;
@@ -168,3 +171,5 @@ struct ImageData flip_image_horizontally(struct ImageData imageData)
 	return newImageData;
 }
 
+#endif
+#pragma endregion
