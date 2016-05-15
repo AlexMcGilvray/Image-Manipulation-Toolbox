@@ -55,6 +55,12 @@ void set_pixel_rgb(struct ImageData target, int x, int y, unsigned char r, unsig
 	target.data[get_data_offset(target, x, y) + 2] = b;
 }
 
+void copy_range(struct ImageData source, struct ImageData target, int length, int sourceOffset, int targetOffset)
+{ 
+	unsigned int memLength = length * COMPONENT_SIZE;
+	memcpy(target.data + sourceOffset, source.data + targetOffset, memLength);
+}
+
 #pragma region Naive implementation
 #ifdef NAIVE_IMPLEMENTATION
 
@@ -181,6 +187,8 @@ struct ImageData flip_image_horizontally(struct ImageData imageData)
 struct ImageData rotate_image_90_cw(struct ImageData imageData)
 {
 	struct ImageData newImageData = create_uninitialized_image(imageData.height, imageData.width);
+	// figure out which imagedata will have the longer row
+	// for each row memcopy the 1d array contents over 
 	return newImageData;
 }
 
@@ -216,6 +224,18 @@ struct ImageData convert_to_greyscale_luminosity(struct ImageData imageData)
 struct ImageData flip_image_vertically(struct ImageData imageData)
 {
 	struct ImageData newImageData = create_uninitialized_image(imageData.width, imageData.height);
+	for (int y = 0; y < imageData.height; ++y)
+	{
+		//copy_range(imageData,newImageData,get_data_offset(imageData,0,y))
+
+
+		for (int x = 0; x < imageData.width; ++x)
+		{
+			const int targetX = x;
+			const int targetY = imageData.height - 1 - y;
+			set_pixel_from_source(imageData, newImageData, x, y, targetX, targetY);
+		}
+	}
 	return newImageData;
 }
 
