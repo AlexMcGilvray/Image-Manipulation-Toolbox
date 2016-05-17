@@ -8,6 +8,7 @@
 //TODO
 // * update support for different component sizes rather than just hard coding 3
 // * write some logging functions to dump test results to a text file
+// * the arbitrary rotation functions rotate in the opposite direction one might assume due to the flipped y in image space. Maybe fix this.
 
 //BACKLOG
 
@@ -32,3 +33,4 @@ int main(int argc, char * argv[])
 // * flip image horizontally
 // * flip image vertically
 // * color space functions (convert to greyscale etc)
+// * arbitrary rotation functions
