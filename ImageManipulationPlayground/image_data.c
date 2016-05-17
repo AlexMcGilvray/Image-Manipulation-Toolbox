@@ -137,7 +137,32 @@ struct ImageData rotate_image(struct ImageData imageData, float degrees, int off
 
 struct ImageData rotate_image_shear(struct ImageData imageData, float degrees, int offsetX, int offsetY)
 {
+	const float radians = degrees * (PI / 180.0f);
+	struct ImageData newImageData = create_uninitialized_image(imageData.width, imageData.height);
+	for (int y = 0; y < imageData.height; ++y)
+	{
+		for (int x = 0; x < imageData.width; ++x)
+		{
+			const int translatedX = x + offsetX;
+			const int translatedY = y + offsetY;
+			int xPrime, yPrime;
+			//step 1 first shear
+			xPrime = translatedX + translatedY * -tan(radians / 2);
+			yPrime = translatedY;
+			//step 2 second shear
+			xPrime = xPrime;
+			yPrime = xPrime * sin(radians) + yPrime;
+			//step 3 third shear
+			xPrime = xPrime + yPrime * -tan(radians / 2);
+			yPrime = yPrime;
 
+			const int targetX = xPrime - offsetX;
+			const int targetY = yPrime - offsetY;
+			if (is_in_range(newImageData, targetX, targetY))
+				set_pixel_from_source(imageData, newImageData, x, y, targetX, targetY);
+		}
+	}
+	return newImageData;
 }
 
 //This is my attempt to do a greyscale conversion before I look up the algorithm to see what my approach would be with no 
