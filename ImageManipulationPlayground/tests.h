@@ -13,6 +13,7 @@ void run_image_rotation_cw90_test();
 void run_image_rotation_ccw90_test();
 void run_image_rotation_180_test();
 void run_image_rotation_test_45();
+void run_image_rotation_test_45_center_offset();
 void run_convert_to_greyscale_average_test();
 void run_convert_to_greyscale_luminosity_test();
 void run_flip_image_vertically_test();

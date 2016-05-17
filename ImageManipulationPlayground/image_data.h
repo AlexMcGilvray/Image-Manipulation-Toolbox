@@ -32,7 +32,7 @@ int is_in_range(struct ImageData imageData, int x, int y);
 struct ImageData rotate_image_90_cw(struct ImageData imageData);
 struct ImageData rotate_image_90_ccw(struct ImageData imageData);
 struct ImageData rotate_image_180(struct ImageData imageData);
-struct ImageData rotate_image(struct ImageData imageData, float degrees);
+struct ImageData rotate_image(struct ImageData imageData, float degrees, int offsetX, int offsetY);
 struct ImageData convert_to_greyscale_average(struct ImageData imageData);
 struct ImageData convert_to_greyscale_luminosity(struct ImageData imageData);
 struct ImageData flip_image_vertically(struct ImageData imageData);

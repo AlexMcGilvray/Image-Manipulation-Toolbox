@@ -62,10 +62,9 @@ void copy_range(struct ImageData source, struct ImageData target, int length, in
 
 int is_in_range(struct ImageData imageData, int x, int y)
 {
-	int dataOffset = get_data_offset(imageData, x, y);
-	if (dataOffset < imageData.width * imageData.height * COMPONENT_SIZE && dataOffset >= 0)
-		return 1;
-	return 0;
+	if (x < 0 || x >= imageData.width || y < 0 || y >= imageData.height)
+		return 0;
+	return 1;
 }
 
 #pragma region Naive implementation
@@ -117,16 +116,18 @@ struct ImageData rotate_image_180(struct ImageData imageData)
 }
 
 
-struct ImageData rotate_image(struct ImageData imageData, float degrees)
+struct ImageData rotate_image(struct ImageData imageData, float degrees, int offsetX, int offsetY)
 {
-	float radians = degrees * (PI / 180.0f);
+	const float radians = degrees * (PI / 180.0f);
 	struct ImageData newImageData = create_uninitialized_image(imageData.width, imageData.height);
 	for (int y = 0; y < imageData.height; ++y)
 	{
 		for (int x = 0; x < imageData.width; ++x)
 		{
-			const int targetX = (x * cos(radians)) + (y * sin(radians));
-			const int targetY = (-x * sin(radians)) + (y * cos(radians));
+			const int translatedX = x + offsetX;
+			const int translatedY = y + offsetY;
+			const int targetX = ((translatedX * cos(radians)) + (translatedY * sin(radians))) - offsetX;
+			const int targetY = ((-translatedX * sin(radians)) + (translatedY * cos(radians))) - offsetY;
 			if (is_in_range(newImageData,targetX,targetY))
 				set_pixel_from_source(imageData, newImageData, x, y, targetX, targetY);
 		}

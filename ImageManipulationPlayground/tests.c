@@ -43,10 +43,11 @@ void run_image_flip_tests()
 void run_image_arbitrary_rotation_tests()
 {
 	prep_running_time();
-	printf("run_image_rotation_test (45.0f) : ");
-	get_running_time(run_image_rotation_test_45);
+	//printf("run_image_rotation_test (45.0f) : ");
+	//get_running_time(run_image_rotation_test_45);
+	printf("run_image_rotation_test_45_center_offset (45.0f, center pivot) : ");
+	get_running_time(run_image_rotation_test_45_center_offset);
 }
-
 
 void run_image_rotation_cw90_test()
 {
@@ -99,7 +100,22 @@ void run_image_rotation_test_45()
 	const char * const outPath = "../TestDataResults/noodles_yawn_rotated_45.png";
 
 	struct ImageData imageData = load_image(inPath);
-	struct ImageData newImageData = rotate_image(imageData, 45.0f);
+	struct ImageData newImageData = rotate_image(imageData, 45.0f,0,0);
+
+	if (!stbi_write_png(outPath, newImageData.width, newImageData.height, 3, newImageData.data, 0))
+		printf("Error \n");
+
+	destroy_image(newImageData);
+	destroy_image(imageData);
+}
+
+void run_image_rotation_test_45_center_offset()
+{
+	const char * const inPath = "../TestData/noodles_yawn.jpg";
+	const char * const outPath = "../TestDataResults/noodles_yawn_rotated_45_offset_center.png";
+
+	struct ImageData imageData = load_image(inPath);
+	struct ImageData newImageData = rotate_image(imageData, 45.0f,-imageData.width / 2, -imageData.height / 2);
 
 	if (!stbi_write_png(outPath, newImageData.width, newImageData.height, 3, newImageData.data, 0))
 		printf("Error \n");
