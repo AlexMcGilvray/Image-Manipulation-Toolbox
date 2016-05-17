@@ -6,8 +6,7 @@
 #include "stb/stb_image_write.h"
 
 #define COMPONENT_SIZE 3
-
-
+#define PI 3.1415926535897932384626433832795028841
 
 struct ImageData load_image(const char * const pathIn)
 {
@@ -61,6 +60,14 @@ void copy_range(struct ImageData source, struct ImageData target, int length, in
 	memcpy(target.data + sourceOffset, source.data + targetOffset, memLength);
 }
 
+int is_in_range(struct ImageData imageData, int x, int y)
+{
+	int dataOffset = get_data_offset(imageData, x, y);
+	if (dataOffset < imageData.width * imageData.height * COMPONENT_SIZE && dataOffset >= 0)
+		return 1;
+	return 0;
+}
+
 #pragma region Naive implementation
 #ifdef NAIVE_IMPLEMENTATION
 
@@ -104,6 +111,24 @@ struct ImageData rotate_image_180(struct ImageData imageData)
 			const int targetX = imageData.width - 1 - x;
 			const int targetY = imageData.height - 1 - y;
 			set_pixel_from_source(imageData, newImageData, x, y, targetX, targetY);
+		}
+	}
+	return newImageData;
+}
+
+
+struct ImageData rotate_image(struct ImageData imageData, float degrees)
+{
+	float radians = degrees * (PI / 180.0f);
+	struct ImageData newImageData = create_uninitialized_image(imageData.width, imageData.height);
+	for (int y = 0; y < imageData.height; ++y)
+	{
+		for (int x = 0; x < imageData.width; ++x)
+		{
+			const int targetX = (x * cos(radians)) + (y * sin(radians));
+			const int targetY = (-x * sin(radians)) + (y * cos(radians));
+			if (is_in_range(newImageData,targetX,targetY))
+				set_pixel_from_source(imageData, newImageData, x, y, targetX, targetY);
 		}
 	}
 	return newImageData;
@@ -238,7 +263,6 @@ struct ImageData flip_image_horizontally(struct ImageData imageData)
 
 	return newImageData;
 }
-
 #endif
 #pragma endregion
 
