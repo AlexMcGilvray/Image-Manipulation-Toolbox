@@ -135,6 +135,11 @@ struct ImageData rotate_image(struct ImageData imageData, float degrees, int off
 	return newImageData;
 }
 
+struct ImageData rotate_image_shear(struct ImageData imageData, float degrees, int offsetX, int offsetY)
+{
+
+}
+
 //This is my attempt to do a greyscale conversion before I look up the algorithm to see what my approach would be with no 
 //prior knowledge.
 struct ImageData convert_to_greyscale_average(struct ImageData imageData)
