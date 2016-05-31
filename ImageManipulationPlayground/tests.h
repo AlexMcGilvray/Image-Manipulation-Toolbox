@@ -7,6 +7,7 @@ void run_image_rotation_tests();
 void run_image_color_conversion_tests();
 void run_image_flip_tests();
 void run_image_arbitrary_rotation_tests();
+void run_draw_symmetry_lines_tests();
 
 //individual tests
 void run_image_rotation_cw90_test();
@@ -20,6 +21,9 @@ void run_convert_to_greyscale_average_test();
 void run_convert_to_greyscale_luminosity_test();
 void run_flip_image_vertically_test();
 void run_flip_image_horizontally_test();
+void run_draw_symmetry_lines_test_01();
+void run_draw_symmetry_lines_test_02();
+void run_draw_symmetry_lines_test_03();
 
 void run_image_copy_test();
 void run_library_tests();

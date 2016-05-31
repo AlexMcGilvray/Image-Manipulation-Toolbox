@@ -248,14 +248,17 @@ struct ImageData flip_image_horizontally(struct ImageData imageData)
 
 struct ImageData draw_symmetry_lines(struct ImageData imageData, int hLines, int vLines)
 {
-	struct ImageData newImageData = create_uninitialized_image(imageData.width, imageData.height);
+	struct ImageData newImageData = create_image_from_source(imageData);
+	int hInterval = newImageData.width / (hLines + 1);
+	int vInterval = newImageData.height / (vLines + 1);
 	for (int y = 0; y < imageData.height; ++y)
 	{
 		for (int x = 0; x < imageData.width; ++x)
 		{
-			const int targetX = imageData.width - 1 - x;
-			const int targetY = y;
-			set_pixel_from_source(imageData, newImageData, x, y, targetX, targetY);
+			if (y % vInterval == 0 || x % hInterval == 0)
+			{
+				set_pixel_rgb(newImageData, x, y, 255, 0, 0);
+			}
 		}
 	}
 	return newImageData;
