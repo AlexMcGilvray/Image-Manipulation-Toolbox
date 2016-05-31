@@ -30,6 +30,16 @@ struct ImageData create_uninitialized_image(int width, int height)
 	return imageData;
 }
 
+struct ImageData create_image_from_source(const struct ImageData sourceImage)
+{
+	struct ImageData imageData;
+	imageData.width = sourceImage.width;
+	imageData.height = sourceImage.height;
+	imageData.data = malloc(sizeof(unsigned char) * imageData.width * imageData.height * COMPONENT_SIZE);
+	copy_range(sourceImage, imageData, imageData.width * imageData.height,0,0);
+	return imageData;
+}
+
 void destroy_image(struct ImageData image)
 {
 	free(image.data);
@@ -234,6 +244,24 @@ struct ImageData flip_image_horizontally(struct ImageData imageData)
 	}
 	return newImageData;
 }
+
+
+struct ImageData draw_symmetry_lines(struct ImageData imageData, int hLines, int vLines)
+{
+	struct ImageData newImageData = create_uninitialized_image(imageData.width, imageData.height);
+	for (int y = 0; y < imageData.height; ++y)
+	{
+		for (int x = 0; x < imageData.width; ++x)
+		{
+			const int targetX = imageData.width - 1 - x;
+			const int targetY = y;
+			set_pixel_from_source(imageData, newImageData, x, y, targetX, targetY);
+		}
+	}
+	return newImageData;
+}
+
+
 
 #endif
 #pragma endregion

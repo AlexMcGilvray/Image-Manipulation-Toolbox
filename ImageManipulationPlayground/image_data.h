@@ -19,6 +19,7 @@ struct ImageData
 //image data stuff
 struct ImageData load_image(const char * const pathIn);
 struct ImageData create_uninitialized_image(int width, int height);
+struct ImageData create_image_from_source(const struct ImageData sourceImage);
 void destroy_image(struct ImageData image);
 
 //util
@@ -38,4 +39,5 @@ struct ImageData convert_to_greyscale_average(struct ImageData imageData);
 struct ImageData convert_to_greyscale_luminosity(struct ImageData imageData);
 struct ImageData flip_image_vertically(struct ImageData imageData);
 struct ImageData flip_image_horizontally(struct ImageData imageData);
+struct ImageData draw_symmetry_lines(struct ImageData imageData,int hLines, int vLines);
 #endif
