@@ -215,6 +215,7 @@ struct ImageData convert_to_greyscale_luminosity(struct ImageData imageData)
 	return newImageData;
 }
 
+#ifdef NAIVE_IMPLEMENTATION
 struct ImageData flip_image_vertically(struct ImageData imageData)
 {
 	struct ImageData newImageData = create_uninitialized_image(imageData.width, imageData.height);
@@ -229,6 +230,20 @@ struct ImageData flip_image_vertically(struct ImageData imageData)
 	}
 	return newImageData;
 }
+#elif OPTIMIZED_IMPLEMENTATION
+//Optimization list
+//Instead of copying each pixel we memcopy a row each iteration using one loop rather than 2
+struct ImageData flip_image_vertically(struct ImageData imageData)
+{
+	struct ImageData newImageData = create_uninitialized_image(imageData.width, imageData.height);
+	for (int y = 0; y < imageData.height; ++y)
+	{
+		int length = imageData.width - 1;
+		copy_range(imageData, newImageData, length, get_data_offset(imageData, 0, y), get_data_offset(newImageData, 0, newImageData.height - 1 - y));
+	}
+	return newImageData;
+}
+#endif
 
 struct ImageData flip_image_horizontally(struct ImageData imageData)
 {
@@ -268,63 +283,4 @@ struct ImageData draw_symmetry_lines(struct ImageData imageData, int hLines, int
 
 #endif
 #pragma endregion
-
-#pragma region Memcopy batching implementation
-#ifdef MEMCOPY_BATCH_OPERATION_IMPLEMENTATION
-struct ImageData rotate_image_90_cw(struct ImageData imageData)
-{
-	struct ImageData newImageData = create_uninitialized_image(imageData.height, imageData.width);
-	// figure out which imagedata will have the longer row
-	// for each row memcopy the 1d array contents over 
-	return newImageData;
-}
-
-struct ImageData rotate_image_90_ccw(struct ImageData imageData)
-{
-	struct ImageData newImageData = create_uninitialized_image(imageData.height, imageData.width);
-	return newImageData;
-}
-
-struct ImageData rotate_image_180(struct ImageData imageData)
-{
-	struct ImageData newImageData = create_uninitialized_image(imageData.width, imageData.height);
-	return newImageData;
-}
-
-//This is my attempt to do a greyscale conversion before I look up the algorithm to see what my approach would be with no 
-//prior knowledge.
-struct ImageData convert_to_greyscale_average(struct ImageData imageData)
-{
-	struct ImageData newImageData = create_uninitialized_image(imageData.width, imageData.height);
-	return newImageData;
-}
-
-struct ImageData convert_to_greyscale_luminosity(struct ImageData imageData)
-{
-	const float rWeight = 0.21f;
-	const float gWeight = 0.72f;
-	const float bWeight = 0.07f;
-	struct ImageData newImageData = create_uninitialized_image(imageData.width, imageData.height);
-	return newImageData;
-}
-
-struct ImageData flip_image_vertically(struct ImageData imageData)
-{
-	struct ImageData newImageData = create_uninitialized_image(imageData.width, imageData.height);
-	for (int y = 0; y < imageData.height; ++y)
-	{
-		int length = imageData.width - 1;
-		copy_range(imageData, newImageData, length, get_data_offset(imageData, 0, y), get_data_offset(newImageData, 0, newImageData.height - 1 - y));
-	}
-	return newImageData;
-}
-
-struct ImageData flip_image_horizontally(struct ImageData imageData)
-{
-	struct ImageData newImageData = create_uninitialized_image(imageData.width, imageData.height);
-
-	return newImageData;
-}
-#endif
-#pragma endregion
-
+ 

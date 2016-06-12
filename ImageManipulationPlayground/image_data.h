@@ -2,12 +2,11 @@
 #ifndef IMAGE_DATA_H
 #define IMAGE_DATA_H
 
+#include "constants.h"
+
 #define IMP_ERROR_SUCCESS 0
 #define IMP_ERROR_FAIL 1
 
-#define NAIVE_IMPLEMENTATION
-//#define MEMCOPY_BATCH_OPERATION_IMPLEMENTATION
-//#define MULTI_THREADED_IMPLEMENTATION
 
 struct ImageData
 {

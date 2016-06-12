@@ -144,10 +144,13 @@
   <ItemGroup>
     <ClCompile Include="image_data.c" />
     <ClCompile Include="main.c" />
+    <ClCompile Include="spaceship_generator.c" />
     <ClCompile Include="tests.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="constants.h" />
     <ClInclude Include="image_data.h" />
+    <ClInclude Include="spaceship_generator.h" />
     <ClInclude Include="tests.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

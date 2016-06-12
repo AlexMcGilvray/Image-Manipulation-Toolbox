@@ -24,13 +24,22 @@
     <ClCompile Include="tests.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="spaceship_generator.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="spaceship_generator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="image_data.h">
-      <Filter>Source Files</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="tests.h">
-      <Filter>Source Files</Filter>
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="constants.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
