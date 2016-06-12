@@ -125,7 +125,6 @@ struct ImageData rotate_image_180(struct ImageData imageData)
 	return newImageData;
 }
 
-
 struct ImageData rotate_image(struct ImageData imageData, float degrees, int offsetX, int offsetY)
 {
 	const float radians = degrees * (PI / 180.0f);
@@ -175,8 +174,6 @@ struct ImageData rotate_image_shear(struct ImageData imageData, float degrees, i
 	return newImageData;
 }
 
-//This is my attempt to do a greyscale conversion before I look up the algorithm to see what my approach would be with no 
-//prior knowledge.
 struct ImageData convert_to_greyscale_average(struct ImageData imageData)
 {
 	struct ImageData newImageData = create_uninitialized_image(imageData.width, imageData.height);
@@ -260,7 +257,6 @@ struct ImageData flip_image_horizontally(struct ImageData imageData)
 	return newImageData;
 }
 
-
 struct ImageData draw_symmetry_lines(struct ImageData imageData, int hLines, int vLines)
 {
 	struct ImageData newImageData = create_image_from_source(imageData);
@@ -278,8 +274,6 @@ struct ImageData draw_symmetry_lines(struct ImageData imageData, int hLines, int
 	}
 	return newImageData;
 }
-
-
 
 #endif
 #pragma endregion

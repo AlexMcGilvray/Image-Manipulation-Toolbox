@@ -61,7 +61,6 @@ void run_draw_symmetry_lines_tests()
 	get_running_time(run_draw_symmetry_lines_test_03);
 }
 
-
 void run_image_rotation_cw90_test()
 {
 	const char * const inPath = "../TestData/noodles_yawn.jpg";
@@ -166,7 +165,6 @@ void run_image_rotation_shear_test_45_center_offset()
 	destroy_image(newImageData);
 	destroy_image(imageData);
 }
-
 
 void run_convert_to_greyscale_average_test()
 {
