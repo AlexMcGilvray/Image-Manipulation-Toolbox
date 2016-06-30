@@ -8,6 +8,9 @@
 #define COMPONENT_SIZE 3
 #define PI 3.1415926535897932384626433832795028841
 
+
+
+
 struct ImageData load_image(const char * const pathIn)
 {
 	struct ImageData imageData;
@@ -127,7 +130,7 @@ struct ImageData rotate_image_180(struct ImageData imageData)
 
 struct ImageData rotate_image(struct ImageData imageData, float degrees, int offsetX, int offsetY)
 {
-	const float radians = degrees * (PI / 180.0f);
+	const float radians = degrees * (float)(PI / 180.0f);
 	struct ImageData newImageData = create_uninitialized_image(imageData.width, imageData.height);
 	for (int y = 0; y < imageData.height; ++y)
 	{
@@ -135,8 +138,8 @@ struct ImageData rotate_image(struct ImageData imageData, float degrees, int off
 		{
 			const int translatedX = x + offsetX;
 			const int translatedY = y + offsetY;
-			const int targetX = ((translatedX * cos(radians)) + (translatedY * sin(radians))) - offsetX;
-			const int targetY = ((-translatedX * sin(radians)) + (translatedY * cos(radians))) - offsetY;
+			const int targetX = (int)(((translatedX * cos(radians)) + (translatedY * sin(radians))) - offsetX);
+			const int targetY = (int)(((-translatedX * sin(radians)) + (translatedY * cos(radians))) - offsetY);
 			if (is_in_range(newImageData,targetX,targetY))
 				set_pixel_from_source(imageData, newImageData, x, y, targetX, targetY);
 		}
@@ -146,7 +149,7 @@ struct ImageData rotate_image(struct ImageData imageData, float degrees, int off
 
 struct ImageData rotate_image_shear(struct ImageData imageData, float degrees, int offsetX, int offsetY)
 {
-	const float radians = degrees * (PI / 180.0f);
+	const float radians = degrees * (float)(PI / 180.0f);
 	struct ImageData newImageData = create_uninitialized_image(imageData.width, imageData.height);
 	for (int y = 0; y < imageData.height; ++y)
 	{
@@ -156,13 +159,13 @@ struct ImageData rotate_image_shear(struct ImageData imageData, float degrees, i
 			const int translatedY = y + offsetY;
 			int xPrime, yPrime;
 			//step 1 first shear
-			xPrime = translatedX + translatedY * -tan(radians / 2);
+			xPrime = (int)(translatedX + translatedY * -tan(radians / 2));
 			yPrime = translatedY;
 			//step 2 second shear
 			xPrime = xPrime;
-			yPrime = xPrime * sin(radians) + yPrime;
+			yPrime = (int)(xPrime * sin(radians) + yPrime);
 			//step 3 third shear
-			xPrime = xPrime + yPrime * -tan(radians / 2);
+			xPrime = (int)(xPrime + yPrime * -tan(radians / 2));
 			yPrime = yPrime;
 
 			const int targetX = xPrime - offsetX;
@@ -274,6 +277,7 @@ struct ImageData draw_symmetry_lines(struct ImageData imageData, int hLines, int
 	}
 	return newImageData;
 }
+
 
 #endif
 #pragma endregion

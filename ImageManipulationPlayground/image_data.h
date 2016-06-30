@@ -7,6 +7,8 @@
 #define IMP_ERROR_SUCCESS 0
 #define IMP_ERROR_FAIL 1
 
+#define LIBRARY_EXPORTS
+
 
 struct ImageData
 {
@@ -14,6 +16,8 @@ struct ImageData
 	int height;
 	unsigned char *data;
 };
+
+
 
 //image data stuff
 struct ImageData load_image(const char * const pathIn);
