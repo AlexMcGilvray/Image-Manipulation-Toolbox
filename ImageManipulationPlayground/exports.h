@@ -19,8 +19,8 @@ LIBRARY_API void export_rotate_image_90_ccw(const char * source, const char * de
 LIBRARY_API void export_rotate_image_180(const char * source, const char * dest);
 LIBRARY_API void export_rotate_image(const char * source, const char * dest, float degrees, int offsetX, int offsetY);
 LIBRARY_API void export_rotate_image_shear(const char * source, const char * dest, float degrees, int offsetX, int offsetY);
-//LIBRARY_API void export_convert_to_greyscale_average(const char * source, const char * dest);
-//LIBRARY_API void export_convert_to_greyscale_luminosity(const char * source, const char * dest);
-//LIBRARY_API void export_flip_image_vertically(const char * source, const char * dest);
-//LIBRARY_API void export_flip_image_horizontally(const char * source, const char * dest);
-//LIBRARY_API void export_draw_symmetry_lines(const char * source, const char * dest, int hLines, int vLines);
+LIBRARY_API void export_convert_to_greyscale_average(const char * source, const char * dest);
+LIBRARY_API void export_convert_to_greyscale_luminosity(const char * source, const char * dest);
+LIBRARY_API void export_flip_image_vertically(const char * source, const char * dest);
+LIBRARY_API void export_flip_image_horizontally(const char * source, const char * dest);
+LIBRARY_API void export_draw_symmetry_lines(const char * source, const char * dest, int hLines, int vLines);
