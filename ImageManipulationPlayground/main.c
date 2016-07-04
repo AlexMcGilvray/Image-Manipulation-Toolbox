@@ -23,7 +23,8 @@ int main(int argc, char * argv[])
 	//run_image_color_conversion_tests(); 
 	//run_image_flip_tests();
 	//run_image_arbitrary_rotation_tests();
-	run_draw_symmetry_lines_tests();
+	//run_draw_symmetry_lines_tests();
+	run_image_resize_tests();
 	getchar();
 }
 

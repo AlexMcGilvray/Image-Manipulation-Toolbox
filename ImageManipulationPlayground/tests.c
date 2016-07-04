@@ -61,6 +61,16 @@ void run_draw_symmetry_lines_tests()
 	get_running_time(run_draw_symmetry_lines_test_03);
 }
 
+void run_image_resize_tests()
+{
+	prep_running_time();
+	printf("run_resize_image_test_01 : ");
+	get_running_time(run_resize_image_test_01);
+	printf("run_resize_image_test_02 : ");
+	get_running_time(run_resize_image_test_02);
+}
+
+
 void run_image_rotation_cw90_test()
 {
 	const char * const inPath = "../TestData/noodles_yawn.jpg";
@@ -296,6 +306,36 @@ void run_draw_symmetry_lines_test_03()
 	destroy_image(imageData);
 }
 
+void run_resize_image_test_01()
+{
+	const char * const inPath = "../TestData/noodles_yawn.jpg";
+	const char * const outPath = "../TestDataResults/noodles_yawn_resize_image_doublesize.png";
+
+	struct ImageData imageData = load_image(inPath);
+	struct ImageData newImageData = resize_image(imageData, imageData.width * 2, imageData.height * 2);
+
+	if (!stbi_write_png(outPath, newImageData.width, newImageData.height, 3, newImageData.data, 0))
+		printf("Error \n");
+
+	destroy_image(newImageData);
+	destroy_image(imageData);
+}
+
+void run_resize_image_test_02()
+{
+	const char * const inPath = "../TestData/noodles_yawn.jpg";
+	const char * const outPath = "../TestDataResults/noodles_yawn_resize_image_halfsize.png";
+
+	struct ImageData imageData = load_image(inPath);
+	struct ImageData newImageData = resize_image(imageData, imageData.width / 2, imageData.height /2);
+
+	if (!stbi_write_png(outPath, newImageData.width, newImageData.height, 3, newImageData.data, 0))
+		printf("Error \n");
+
+	destroy_image(newImageData);
+	destroy_image(imageData);
+}
+
 void run_library_tests()
 {
 	printf("Running library tests \n");
@@ -319,3 +359,4 @@ int image_readwrite_test(const char * const pathIn, const char * const pathOut)
 
 	return IMP_ERROR_FAIL;
 }
+
