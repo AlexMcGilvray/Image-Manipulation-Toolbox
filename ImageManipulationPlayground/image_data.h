@@ -43,4 +43,5 @@ struct ImageData convert_to_greyscale_luminosity(struct ImageData imageData);
 struct ImageData flip_image_vertically(struct ImageData imageData);
 struct ImageData flip_image_horizontally(struct ImageData imageData);
 struct ImageData draw_symmetry_lines(struct ImageData imageData,int hLines, int vLines);
+struct ImageData resize_image(struct ImageData imageData, int width, int height);
 #endif

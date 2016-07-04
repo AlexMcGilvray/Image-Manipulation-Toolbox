@@ -11,9 +11,6 @@
 #    define LIBRARY_API
 #endif
 
-LIBRARY_API  void export_test();
-LIBRARY_API  void export_test2(const char * someVal);
-
 LIBRARY_API void export_rotate_image_90_cw(const char * source, const char * dest);
 LIBRARY_API void export_rotate_image_90_ccw(const char * source, const char * dest);
 LIBRARY_API void export_rotate_image_180(const char * source, const char * dest);

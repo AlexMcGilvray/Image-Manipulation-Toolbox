@@ -278,6 +278,23 @@ struct ImageData draw_symmetry_lines(struct ImageData imageData, int hLines, int
 	return newImageData;
 }
 
+//My naive attempt at solving this before looking it up
+struct ImageData resize_image(struct ImageData imageData, int width, int height)
+{
+	struct ImageData newImageData = create_uninitialized_image(width, height);
+	const float widthRatio = (float)newImageData.width / imageData.width;
+	const float heightRatio = (float)newImageData.height / imageData.height;
+	for (int y = 0; y < newImageData.height; ++y)
+	{
+		for (int x = 0; x < newImageData.width; ++x)
+		{
+			int xCoord = x * widthRatio;
+			int yCoord = y * heightRatio;
+			set_pixel_from_source(imageData, newImageData, xCoord, yCoord, x, y);
+		}
+	}
+	return newImageData;
+}
 
 #endif
 #pragma endregion
