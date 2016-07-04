@@ -288,8 +288,8 @@ struct ImageData resize_image(struct ImageData imageData, int width, int height)
 	{
 		for (int x = 0; x < newImageData.width; ++x)
 		{
-			int xCoord = x * widthRatio;
-			int yCoord = y * heightRatio;
+			int xCoord = x / widthRatio;
+			int yCoord = y / heightRatio;
 			set_pixel_from_source(imageData, newImageData, xCoord, yCoord, x, y);
 		}
 	}
