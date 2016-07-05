@@ -70,7 +70,6 @@ void run_image_resize_tests()
 	get_running_time(run_resize_image_test_02);
 }
 
-
 void run_image_rotation_cw90_test()
 {
 	const char * const inPath = "../TestData/noodles_yawn.jpg";

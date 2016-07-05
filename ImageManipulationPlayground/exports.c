@@ -121,4 +121,16 @@ LIBRARY_API void export_draw_symmetry_lines(const char * source, const char * de
 	destroy_image(imageData);
 }
 
+LIBRARY_API void export_resize_image(const char * source, const char * dest, int width, int height)
+{
+	struct ImageData imageData = load_image(source);
+	struct ImageData newImageData = resize_image(imageData, width, height);
+
+	if (!stbi_write_png(dest, newImageData.width, newImageData.height, 3, newImageData.data, 0))
+		printf("Error \n");
+
+	destroy_image(newImageData);
+	destroy_image(imageData);
+}
+
 //rotate_image(imageData, 45.0f,0,0);

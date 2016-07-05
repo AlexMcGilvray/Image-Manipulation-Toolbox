@@ -21,3 +21,4 @@ LIBRARY_API void export_convert_to_greyscale_luminosity(const char * source, con
 LIBRARY_API void export_flip_image_vertically(const char * source, const char * dest);
 LIBRARY_API void export_flip_image_horizontally(const char * source, const char * dest);
 LIBRARY_API void export_draw_symmetry_lines(const char * source, const char * dest, int hLines, int vLines);
+LIBRARY_API void export_resize_image(const char * source, const char * dest, int width, int height);
